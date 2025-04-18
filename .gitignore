@@ -14,8 +14,6 @@ instance/
 # Logs
 *.log
 
-# Configuration files
-config.py
 
 # Jupyter Notebooks checkpoints
 .ipynb_checkpoints/
