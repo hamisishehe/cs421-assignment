@@ -1,0 +1,30 @@
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# IDE and editor configurations
+.vscode/
+.idea/
+*.swp
+
+# Flask instance folder (if using Flask's default folder)
+instance/
+
+# Logs
+*.log
+
+# Configuration files
+config.py
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Python package distribution files
+*.egg
+*.egg-info/
+dist/
+build/
+*.bak
+*.tmp
+*.pem
