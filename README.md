@@ -4,6 +4,8 @@ This project is a Flask-based API designed to provide information about students
 /students: Provides a list of students and their enrolled programs.
 /subjects: Lists subjects for the Software Engineering program, organized by academic year.
 
+http://3.147.7.10:8000/students
+http://3.147.7.10:8000/subjects
 
 
 bash_scripts/ Directory
