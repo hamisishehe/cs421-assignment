@@ -15,7 +15,7 @@ mkdir -p "$BACKUP_DIR"
 API_BACKUP="$BACKUP_DIR/api_backup_${DATE}.tar.gz"
 DB_BACKUP="$BACKUP_DIR/db_backup_${DATE}.sql"
 
-/opt/lampp/bin/mysqldump -u $DB_USER -p$DB_PASS -S /opt/lampp/var/mysql/mysql.sock $DB_NAME > $DB_BACKUP
+# /opt/lampp/bin/mysqldump -u $DB_USER -p$DB_PASS -S /opt/lampp/var/mysql/mysql.sock $DB_NAME > $DB_BACKUP
 
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] 🔄 Starting backup..." >> "$LOG_FILE"
@@ -28,8 +28,8 @@ else
 fi
 
 
-# MySQL:
-# mysqldump -u $DB_USER -p$DB_PASS $DB_NAME > $DB_BACKUP
+MySQL:
+mysqldump -u $DB_USER -p$DB_PASS $DB_NAME > $DB_BACKUP
 
 
 if [ -f "$DB_BACKUP" ]; then
