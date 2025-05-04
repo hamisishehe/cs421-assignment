@@ -14,7 +14,7 @@ http://3.149.7.150:5000/students
 Bash Scripts (bash_scripts/ Directory)
 This folder contains Bash scripts to help monitor, back up, and maintain the API server.
 
-1. health_check.sh
+## 1. health_check.sh
 Checks CPU, memory, and disk usage.
 
 Verifies the web server is running.
@@ -23,7 +23,7 @@ Tests /students and /subjects API endpoints.
 
 Logs status to /var/log/server_health.log.
 
-2. backup_api.sh
+## 2. backup_api.sh
 Backs up the API project files and MySQL database.
 
 Archives are stored in ~/backups.
@@ -32,7 +32,7 @@ Automatically deletes backups older than 7 days.
 
 Logs status to /var/log/backup.log.
 
-3. update_server.sh
+## 3. update_server.sh
 Updates Ubuntu packages.
 
 Pulls the latest changes from GitHub.
@@ -108,9 +108,9 @@ bash
 Copy
 Edit
 docker push hamisishehe05/hamisi-api:latest
-✅ This uploads your image to Docker Hub.
+This uploads your image to Docker Hub.
 
-Docker Hub Link
+## Docker Hub Link
 You can pull the image using:
 
 bash
@@ -121,8 +121,6 @@ Or view it on Docker Hub:
 👉 https://hub.docker.com/r/hamisishehe05/hamisi-api
 
 
-
-
 Troubleshooting Tips and Problem	Solution
 ->Error starting userland proxy: listen tcp4 0.0.0.0:3306: bind: address already in use	MySQL is already running on port 3306. Stop it: sudo systemctl stop mysql
 ->denied: requested access to the resource is denied	You forgot to docker login before pushing images.
@@ -130,7 +128,7 @@ Troubleshooting Tips and Problem	Solution
 Docker Compose not recognized	Install Docker Compose: sudo apt install docker-compose
 
 
-Project Dependencies
+## Project Dependencies
 Make sure these are installed on the server:
 
 curl
@@ -144,3 +142,125 @@ git
 docker
 
 docker-compose
+
+
+
+
+#  Containerized Frontend with Load Balancer
+
+This project includes a Flask backend (`api`), three frontend instances (`frontend1`, `frontend2`, `frontend3`), a MySQL database (`db`), and an Nginx load balancer, all containerized using Docker Compose.
+
+---
+
+##  Instructions to Build and Run Front-End Containers
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/hamisishehe/cs421-assignment.git
+   cd your-repo
+   ```
+
+2. **Build the Containers:**
+
+   ```bash
+   docker-compose build
+   ```
+
+   Or build and run in one command:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Start the Services:**
+
+   ```bash
+   docker-compose up
+   ```
+
+4. **Access the Front-End via Load Balancer:**
+
+   ```
+   http://localhost/
+   ```
+
+   You can also directly access the individual frontends:
+
+   * `http://localhost:3000`
+   * `http://localhost:3001`
+   * `http://localhost:3003`
+
+---
+
+## ⚙️ Load Balancer Setup
+
+The project uses **Nginx (alpine)** as a load balancer to distribute traffic between three frontend containers using a **round-robin algorithm**.
+
+### Load Balancing Details:
+
+* **Algorithm**: Round-robin (default Nginx behavior)
+* **Load Balanced Containers**: `frontend1`, `frontend2`, `frontend3`
+* **Port**: Listens on port `80` on the host machine
+
+###  Health Checks:
+
+Basic health checks are handled by Docker. Nginx can be configured to skip failed servers using upstream failover logic.
+
+Example (not included by default):
+
+```nginx
+proxy_next_upstream error timeout http_502 http_503 http_504;
+```
+
+---
+
+## ☁️ Deploying on AWS
+
+1. **Launch an EC2 instance**
+
+   * Recommended OS: Ubuntu or Amazon Linux 2
+   * Open ports: `80`, `3000`, `3001`, `3003`, `5000`
+
+2. **Install Docker and Docker Compose**
+
+   ```bash
+   sudo apt update
+   sudo apt install docker.io docker-compose -y
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
+
+3. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/hamisishehe/cs421-assignment.git
+   cd your-repo
+   ```
+
+4. **Build and Run the App:**
+
+   ```bash
+   sudo docker-compose up --build -d
+   ```
+
+5. **Access the Application via Public IP:**
+
+   * Load Balanced Frontend: `http://<EC2-PUBLIC-IP>/`
+   * Flask API: `http://<EC2-PUBLIC-IP>:5000`
+
+---
+
+## 💠 Troubleshooting Tips
+
+| Issue                       | Solution                                                                |
+| --------------------------- | ----------------------------------------------------------------------- |
+|  Front-end not loading    | Check `docker ps`. Ensure all frontend containers are running.          |
+|  API not connecting to DB | Check `docker-compose logs db`. Ensure the DB is healthy and ready.     |
+|  Nginx errors              | Check `docker-compose logs nginx`. Verify `nginx.conf` routing.         |
+|  Header not appearing     | Confirm frontend assets are loading. Check browser dev tools.           |
+|  Flask API crashing       | Run `docker-compose logs api`. Check for missing packages or DB issues. |
+
+---
+
+
