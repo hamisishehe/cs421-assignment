@@ -247,10 +247,10 @@ proxy_next_upstream error timeout http_502 http_503 http_504;
 
 5. **Access the Application via Public IP:**
 
-   * Load Balanced Frontend: `http://<EC2-PUBLIC-IP>/`
-   * Flask API: `http://<EC2-PUBLIC-IP>:5000`
+   * Load Balanced Frontend: `http://3.148.192.1/`
+   * Flask API: `http://3.148.192.1:5000`
 
----
+
 
 ## 💠 Troubleshooting Tips
 
@@ -262,6 +262,5 @@ proxy_next_upstream error timeout http_502 http_503 http_504;
 |  Header not appearing     | Confirm frontend assets are loading. Check browser dev tools.           |
 |  Flask API crashing       | Run `docker-compose logs api`. Check for missing packages or DB issues. |
 
----
 
 
