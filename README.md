@@ -7,9 +7,10 @@ This project is a Flask-based API designed to provide information about students
 
 🌐 API Live Links:
 
-http://3.149.7.150:5000/subjects
+http://3.148.192.1:5000/subjects
 
-http://3.149.7.150:5000/students
+
+http://3.148.192.1:5000/students
 
 Bash Scripts (bash_scripts/ Directory)
 This folder contains Bash scripts to help monitor, back up, and maintain the API server.
@@ -182,14 +183,14 @@ This project includes a Flask backend (`api`), three frontend instances (`fronte
 4. **Access the Front-End via Load Balancer:**
 
    ```
-   http://localhost/
+   http://3.148.192.1/
    ```
 
    You can also directly access the individual frontends:
 
-   * `http://localhost:3000`
-   * `http://localhost:3001`
-   * `http://localhost:3003`
+   * `http://3.148.192.1:3000`
+   * `http://3.148.192.1:3001`
+   * `http://3.148.192.1:3003`
 
 ---
 
